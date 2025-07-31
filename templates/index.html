@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <form class="d-flex mb-4" method="get" action="/search">
+        <input class="form-control me-2" type="search" placeholder="Search News" name="q" required>
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+
+    <h2 class="mb-4">Top Headlines</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for article in articles %}
+        <div class="col">
+            <div class="card h-100">
+                {% if article.urlToImage %}
+                <img src="{{ article.urlToImage }}" class="card-img-top" alt="News Image">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ article.title }}</h5>
+                    <p class="card-text">
+                        {{ article.description }}
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">{{ article.source.name }}</small><br>
+                    <a href="{{ article.url }}" target="_blank" class="btn btn-sm btn-outline-primary mt-2">Read More</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
